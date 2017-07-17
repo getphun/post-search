@@ -1,0 +1,1 @@
+DELETE FROM `site_param` WHERE `group` = 'Post Search';

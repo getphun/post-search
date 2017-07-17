@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <?php if(module_exists('site-meta')): ?>
+    <?= $this->meta->head($index); ?>
+    <?php endif; ?>
+</head>
+<body>
+    <h1>Post Search</h1>
+    
+    <div id="post-search-result-total"></div>
+    <div id="post-search-result-loader">Loading...</div>
+    <div id="post-search-result-error"></div>
+    <ul id="post-search-result-list"></ul>
+    <ul id="post-search-result-pager"></ul>
+    
+    <?php if(module_exists('site-meta')): ?>
+    <?= $this->meta->foot($index); ?>
+    <?php endif; ?>
+    
+    <!-- required script for post search -->
+    <script id="post-search-template-item" type="text/template">
+        <li>
+            <a href="#link#">#title#</a>
+            <div>#htmlSnippet#</div>
+            <img src="#image#" alt="#" width="320">
+        </li>
+    </script>
+    <script id="post-search-template-page-item" type="text/template">
+        <li class="cse-is-active"><a href="#" class="cse-event"><span class="cse-label"></span></a></li>
+    </script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+        id="post-search-script"
+        src="<?= $this->asset('js/post-search.js') ?>"
+        data-key="<?= $this->setting->post_search_gce_key ?>"
+        data-cx="<?= $this->setting->post_search_gce_cx ?>"></script>
+</body>
+</html>
