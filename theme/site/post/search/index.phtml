@@ -8,33 +8,54 @@
 <body>
     <h1>Post Search</h1>
     
-    <div id="post-search-result-total"></div>
-    <div id="post-search-result-loader">Loading...</div>
-    <div id="post-search-result-error"></div>
-    <ul id="post-search-result-list"></ul>
-    <ul id="post-search-result-pager"></ul>
+    <ul id="result">
+    </ul>
+    
+    <ul id="pager">
+    </ul>
     
     <?php if(module_exists('site-meta')): ?>
     <?= $this->meta->foot($index); ?>
     <?php endif; ?>
     
-    <!-- required script for post search -->
-    <script id="post-search-template-item" type="text/template">
-        <li>
-            <a href="#link#">#title#</a>
-            <div>#htmlSnippet#</div>
-            <img src="#image#" alt="#" width="320">
-        </li>
-    </script>
-    <script id="post-search-template-page-item" type="text/template">
-        <li class="cse-is-active"><a href="#" class="cse-event"><span class="cse-label"></span></a></li>
-    </script>
-    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script
-        id="post-search-script"
-        src="<?= $this->asset('js/post-search.js') ?>"
-        data-key="<?= $this->setting->post_search_gce_key ?>"
-        data-cx="<?= $this->setting->post_search_gce_cx ?>"></script>
+    <script src="<?= $this->asset('js/post-search.js') ?>"></script>
+    <script>
+        PS.init({
+            key: '<?= $this->setting->post_search_gce_key ?>',
+            cx : '<?= $this->setting->post_search_gce_cx ?>'
+        });
+        
+        var qs = location.search.match(/q=([^&]+)/);
+        if(qs && qs[1]){
+            var q = qs[1];
+            
+            var page = location.search.match(/page=([0-9]+)/);
+            if(!page || !page[1])
+                page = 1;
+            
+            PS.find(q, page, function(err, res){
+                if(err)
+                    return console.log(err);
+                
+                for(var i=0; i<res.items.length; i++){
+                    var post = res.items[i];
+                    var li = $('<li></li>');
+                    var a = $('<a href="'+post.link+'">'+post.title+'</a>');
+                    li.append(a);
+                    $('#result').append(li);
+                }
+                
+                for(var i=0; i<res.pages; i++){
+                    var page = i+1;
+                    var li = $('<li>');
+                    var a  = $('<a href="?q='+q+'&page='+page+'">'+page+'</a>');
+                    li.append(a);
+                    $('#pager').append(li);
+                }
+            });
+        }
+        
+    </script>
 </body>
 </html>

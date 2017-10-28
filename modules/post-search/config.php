@@ -15,6 +15,7 @@ return [
         'modules/post-search/_db'               => [ 'install', 'remove', 'update' ],
         'modules/post-search/meta'              => [ 'install', 'remove', 'update' ],
         'theme/site/static/js/post-search.js'   => [ 'install', 'remove', 'update' ],
+        'theme/site/static/js/post-search.min.js' => [ 'install', 'remove', 'update' ],
         'modules/post-search/controller'        => [ 'install', 'remove' ],
         'theme/site/post/search'                => [ 'install', 'remove' ]
     ],
