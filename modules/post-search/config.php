@@ -22,6 +22,7 @@ return [
     '__dependencies' => [
         'site',
         'post',
+        'site-meta',
         'site-param'
     ],
     '_services' => [],

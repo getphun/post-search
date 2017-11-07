@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <?php if(module_exists('site-meta')): ?>
     <?= $this->meta->head($index); ?>
-    <?php endif; ?>
 </head>
 <body>
     <h1>Post Search</h1>
@@ -14,9 +12,7 @@
     <ul id="pager">
     </ul>
     
-    <?php if(module_exists('site-meta')): ?>
     <?= $this->meta->foot($index); ?>
-    <?php endif; ?>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="<?= $this->asset('js/post-search.js') ?>"></script>
