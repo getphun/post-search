@@ -29,6 +29,8 @@
             var page = location.search.match(/page=([0-9]+)/);
             if(!page || !page[1])
                 page = 1;
+            else
+                page = page[1];
             
             PS.find(q, page, function(err, res){
                 if(err)
